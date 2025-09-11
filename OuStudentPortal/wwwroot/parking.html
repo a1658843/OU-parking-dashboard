@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Garage Availability (Demo)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{
+      --green: #28a745;
+      --yellow: #ffc107;
+      --orange: #fd7e14;
+      --red: #dc3545;
+      --gray: #e9ecef;
+      --bg: #f7f7f9;
+      --card-bg: #ffffff;
+    }
+    body{font-family:system-ui,Segoe UI,Roboto,Arial; margin:20px; background:var(--bg); color:#222}
+    h1{margin-bottom:8px}
+    .garage { background:var(--card-bg); padding:12px; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.06); margin-bottom:12px; max-width:720px }
+    .meta {font-size:13px; color:#555; margin-bottom:8px}
+    .bar { height:28px; background:var(--gray); border-radius:999px; overflow:hidden; position:relative; }
+    .fill { height:100%; width:0%; transition: width 600ms ease; display:block; }
+    .pct { position:absolute; left:50%; top:0; transform:translateX(-50%); font-weight:700; font-size:13px; line-height:28px; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,0.25) }
+    .small { font-size:13px; color:#666; margin-top:6px }
+    .container { display:flex; flex-direction:column; gap:8px; }
+  </style>
+</head>
+<body>
+  <h1>Garage Availability — Demo</h1>
+  <div id="list" class="container">Loading…</div>
+
+  <script>
+    // Fetch garages, render bars.
+    async function load() {
+      try {
+        const res = await fetch('/api/parking/garages');
+        if (!res.ok) throw new Error('API returned ' + res.status);
+        const garages = await res.json(); // camelCase JSON by default in ASP.NET Core
+        const root = document.getElementById('list');
+        root.innerHTML = '';
+        garages.forEach(g => root.appendChild(renderGarage(g)));
+      } catch (err) {
+        document.getElementById('list').innerText = 'Failed to load: ' + (err.message || err);
+      }
+    }
+
+    // compute percent full (0-100)
+    // only return 100 when available === 0
+    function computePercentFull(capacity, available) {
+      if (available <= 0) return 100;
+      const filled = capacity - available;
+      let percent = Math.floor((filled * 100) / capacity); // floor prevents rounding up
+      // safety: if math produced 100 but there are available spots, clamp to 99
+      if (available > 0 && percent >= 100) percent = 99;
+      if (percent < 0) percent = 0;
+      return percent;
+    }
+
+    // color rules:
+    // 0 -> gray (no fill)
+    // 1-49 -> green
+    // 50-79 -> yellow
+    // 80-99 -> orange
+    // 100 -> red
+    function colorForPercent(percent) {
+      if (percent === 0) return null;
+      if (percent === 100) return 'var(--red)';
+      if (percent >= 80) return 'var(--orange)';
+      if (percent >= 50) return 'var(--yellow)';
+      return 'var(--green)';
+    }
+
+    function renderGarage(g) {
+      // g has fields like: id, code, name, capacity, available, updatedAtUtc...
+      const capacity = g.capacity ?? 0;
+      const available = g.available ?? 0;
+      const percent = computePercentFull(capacity, available);
+      const color = colorForPercent(percent);
+
+      const card = document.createElement('div');
+      card.className = 'garage';
+
+      const title = document.createElement('div');
+      title.innerHTML = `<strong>${g.name} (${g.code})</strong>`;
+      card.appendChild(title);
+
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.textContent = `${available} open of ${capacity} total — updated: ${new Date(g.updatedAtUtc).toLocaleTimeString()}`;
+      card.appendChild(meta);
+
+      const bar = document.createElement('div');
+      bar.className = 'bar';
+
+      const fill = document.createElement('span');
+      fill.className = 'fill';
+
+      if (percent === 0) {
+        // no visible fill — show gray background and 0%
+        fill.style.width = '0%';
+        fill.style.background = 'transparent';
+      } else {
+        fill.style.width = percent + '%';
+        fill.style.background = color;
+      }
+
+      const pct = document.createElement('div');
+      pct.className = 'pct';
+      pct.textContent = percent + '%';
+
+      bar.appendChild(fill);
+      bar.appendChild(pct);
+      card.appendChild(bar);
+
+      const small = document.createElement('div');
+      small.className = 'small';
+      small.textContent = (percent === 0) ? 'No fill (0%)' : (percent === 100 ? 'Full (100%)' : '');
+      card.appendChild(small);
+
+      return card;
+    }
+
+    // initial load + periodic refresh
+    load();
+    setInterval(load, 5000);
+  </script>
+</body>
+</html>

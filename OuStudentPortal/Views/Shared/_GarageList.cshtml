@@ -1,0 +1,94 @@
+@using OuStudentPortal.Models.Parking
+@model IEnumerable<Garage>
+
+@functions {
+    // returns a CSS color hex string
+    private string GetBarColor(int percent)
+    {
+        if (percent == 0) return "#E9ECEF";          // gray (empty)
+        if (percent <= 49) return "#28A745";         // green
+        if (percent <= 69) return "#FFC107";         // yellow
+        if (percent <= 89) return "#FD7E14";         // orange
+        if (percent <= 99) return "#E65100";         // dark orange
+        return "#DC3545";                            // red (100%)
+    }
+
+    private string GetTextColor(int percent)
+    {
+        if (percent == 0) return "#333";             // gray → dark text
+        if (percent <= 69 && percent >= 50) return "#222"; // yellow → dark text
+        return "#fff";                               // otherwise white
+    }
+
+    private int ComputePercent(int capacity, int available)
+    {
+        if (capacity <= 0) return 0;
+        if (available <= 0) return 100;
+
+        var filled = capacity - available;
+        var percent = (int)Math.Floor((double)filled * 100.0 / capacity);
+
+        if (available > 0 && percent >= 100) percent = 99;
+        if (percent < 0) percent = 0;
+
+        return percent;
+    }
+}
+
+<style>
+    .garage-card {
+        max-width: 720px;
+        margin-bottom: 16px;
+        padding: 12px 16px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .progress-container {
+        height: 32px;
+        background: #E9ECEF;
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 8px;
+        position: relative;
+    }
+    .progress-fill {
+        height: 100%;
+        transition: width 600ms ease, background 300ms ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .progress-text {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        font-weight: 700;
+        line-height: 32px;
+    }
+</style>
+
+@foreach (var garage in Model)
+{
+    var available = garage.Status?.Available ?? 0;
+    var capacity = garage.Capacity;
+    var percent = ComputePercent(capacity, available);
+    var bg = GetBarColor(percent);
+    var textColor = GetTextColor(percent);
+
+    <div class="garage-card">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>@garage.Name (@garage.Code)</strong>
+            <small>@available open / @capacity total</small>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-fill" style="width:@percent%; background:@bg;">
+                <span class="progress-text" style="color:@textColor;">
+                    @percent% @(percent == 100 ? "(Full)" : "")
+                </span>
+            </div>
+        </div>
+    </div>
+}

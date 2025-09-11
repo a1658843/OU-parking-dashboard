@@ -8108,26 +8108,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\a1658\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\a1658\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\a1658\\OneDrive\\Desktop\\.net project\\OuStudentPortal\\OuStudentPortal.csproj",
+      "projectUniqueName": "C:\\Users\\a1658\\OneDrive\\Desktop\\codes\\OU_Parking_Project\\.net-project\\OuStudentPortal\\OuStudentPortal.csproj",
       "projectName": "OuStudentPortal",
-      "projectPath": "C:\\Users\\a1658\\OneDrive\\Desktop\\.net project\\OuStudentPortal\\OuStudentPortal.csproj",
+      "projectPath": "C:\\Users\\a1658\\OneDrive\\Desktop\\codes\\OU_Parking_Project\\.net-project\\OuStudentPortal\\OuStudentPortal.csproj",
       "packagesPath": "C:\\Users\\a1658\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\a1658\\OneDrive\\Desktop\\.net project\\OuStudentPortal\\obj\\",
+      "outputPath": "C:\\Users\\a1658\\OneDrive\\Desktop\\codes\\OU_Parking_Project\\.net-project\\OuStudentPortal\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\a1658\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config"
+        "C:\\Users\\a1658\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -8150,7 +8143,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -8198,7 +8192,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.413/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
