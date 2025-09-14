@@ -245,6 +245,14 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\a1658\\OneDrive\\Desktop\\.net project\\OuStudentPortal\\wwwroot\\parking.html",
+      "PackagePath": "staticwebassets\\parking.html"
+    },
+    {
+      "Id": "C:\\Users\\a1658\\OneDrive\\Desktop\\.net project\\OuStudentPortal\\wwwroot\\pdfs\\ou-parking-map-2025.pdf",
+      "PackagePath": "staticwebassets\\pdfs\\ou-parking-map-2025.pdf"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.OuStudentPortal.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

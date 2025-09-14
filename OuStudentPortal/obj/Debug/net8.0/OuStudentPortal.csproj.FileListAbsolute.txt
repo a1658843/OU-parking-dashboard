@@ -563,3 +563,4 @@ C:\Users\a1658\OneDrive\Desktop\codes\OU_Parking_Project\.net-project\OuStudentP
 C:\Users\a1658\OneDrive\Desktop\codes\OU_Parking_Project\.net-project\OuStudentPortal\obj\Debug\net8.0\OuStudentPortal.pdb
 C:\Users\a1658\OneDrive\Desktop\codes\OU_Parking_Project\.net-project\OuStudentPortal\obj\Debug\net8.0\OuStudentPortal.genruntimeconfig.cache
 C:\Users\a1658\OneDrive\Desktop\codes\OU_Parking_Project\.net-project\OuStudentPortal\obj\Debug\net8.0\ref\OuStudentPortal.dll
+C:\Users\a1658\OneDrive\Desktop\.net project\OuStudentPortal\obj\Debug\net8.0\OuStudentPortal.sourcelink.json
