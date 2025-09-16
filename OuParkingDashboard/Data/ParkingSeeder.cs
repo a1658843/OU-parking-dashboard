@@ -15,8 +15,9 @@ namespace OuParkingDashboard.Services
 
         public async Task SeedAsync()
         {
-            if (await _db.Garages.AnyAsync())
-                return; // Already seeded
+            // Clear old data every time
+            await _db.Database.ExecuteSqlRawAsync("DELETE FROM GarageStatuses");
+            await _db.Database.ExecuteSqlRawAsync("DELETE FROM Garages");
 
             var garages = new List<Garage>
             {
@@ -27,7 +28,7 @@ namespace OuParkingDashboard.Services
                     Capacity = 1200,
                     Status = new GarageStatus
                     {
-                        Available = 4, // almost full
+                        Available = 1100,   // ~8% full
                         UpdatedAtUtc = DateTime.UtcNow
                     }
                 },
@@ -38,7 +39,7 @@ namespace OuParkingDashboard.Services
                     Capacity = 1500,
                     Status = new GarageStatus
                     {
-                        Available = 750, // ~50% full
+                        Available = 750, // ~50% (yellow 🚨)
                         UpdatedAtUtc = DateTime.UtcNow
                     }
                 },
@@ -60,7 +61,7 @@ namespace OuParkingDashboard.Services
                     Capacity = 1000,
                     Status = new GarageStatus
                     {
-                        Available = 0, // full
+                        Available = 0,   // full
                         UpdatedAtUtc = DateTime.UtcNow
                     }
                 }

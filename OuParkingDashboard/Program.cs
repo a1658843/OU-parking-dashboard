@@ -8,8 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Register hosted service
+// Register services
 builder.Services.AddHostedService<MockParkingFeedService>();
+builder.Services.AddTransient<ParkingSeeder>(); // ✅ register seeder
 
 // Enable CORS for development
 builder.Services.AddCors(opt =>
@@ -91,7 +92,7 @@ app.MapGet("/", () =>
 
                 garages.forEach(g => {
                     const row = table.insertRow();
-                    const percentFull = Math.floor((1 - g.available / g.capacity) * 100); // floor for realistic % 
+                    const percentFull = Math.floor((1 - g.available / g.capacity) * 100); 
 
                     row.insertCell(0).innerText = g.name;
                     row.insertCell(1).innerText = g.capacity;
@@ -138,13 +139,10 @@ app.MapGet("/api/garages", async (ApplicationDbContext db) =>
     return Results.Json(garages);
 });
 
-// Seed data on startup
+// ✅ Seed data on startup
 using (var scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-    var db = services.GetRequiredService<ApplicationDbContext>();
-
-    var seeder = new ParkingSeeder(db);
+    var seeder = scope.ServiceProvider.GetRequiredService<ParkingSeeder>();
     await seeder.SeedAsync();
 }
 
