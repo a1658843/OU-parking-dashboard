@@ -1,8 +1,167 @@
-﻿@{
-    ViewData["Title"] = "Home";
+﻿@model IEnumerable<OuParkingDashboard.Models.ViewModels.GarageViewModel>
+
+@{
+    ViewData["Title"] = "Garage Status";
+    Layout = "_Layout"; // uses your existing shared layout if present
 }
-<div class="text-center">
-    <h1 class="display-4">OU Student Services Portal</h1>
-    <p class="lead">Welcome! This demo will grow from MVC → DB → API → Frontend.</p>
-    <p><a class="btn btn-primary" asp-controller="Home" asp-action="About">Learn more</a></p>
-</div>
+
+<style>
+    .bar-container {
+        width: 100%;
+        background-color: #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+        height: 25px;
+    }
+
+    .bar {
+        height: 100%;
+        text-align: center;
+        line-height: 25px;
+        color: white;
+        font-weight: bold;
+    }
+
+    .gray {
+        background-color: #999;
+    }
+
+    .green {
+        background-color: #4CAF50;
+    }
+
+    .yellow {
+        background-color: #FFC107;
+    }
+
+    .orange {
+        background-color: #FF9800;
+    }
+
+    .red {
+        background-color: #F44336;
+    }
+
+    .bar span {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
+        text-align: center;
+        color: white;
+    }
+
+    .pdf-link {
+        font-size: 18px;
+        font-weight: bold;
+        color: #004080;
+        text-decoration: none;
+    }
+
+    .pdf-link:hover {
+        text-decoration: underline;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        border-bottom: 1px solid #e0e0e0;
+        text-align: center;
+    }
+</style>
+
+<h1>🚗 Live Garage Status</h1>
+
+<table id="garageTable" class="table">
+    <thead>
+        <tr>
+            <th>Garage</th>
+            <th>Capacity</th>
+            <th>Available</th>
+            <th>Fullness</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var g in Model)
+        {
+            var color = g.PercentFull == 0 ? "gray" :
+            g.PercentFull <= 50 ? "green" :
+            g.PercentFull <= 70 ? "yellow" :
+            g.PercentFull <= 90 ? "orange" : "red";
+
+            <tr>
+                <td>@g.Name</td>
+                <td>@g.Capacity</td>
+                <td>@g.Available</td>
+                <td>
+                    <div class="bar-container">
+                        <div class="bar @color" style="width:@g.PercentFull%;">
+                            <span>@g.PercentFull% </span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<section id="campus-map" style="margin-top:30px;">
+    <h2>🗺️ Campus Map</h2>
+    <p>
+        <a class="pdf-link" href="/pdfs/ou-parking-map-2025.pdf" target="_blank" rel="noopener noreferrer">
+            📄 View Full Parking Map (PDF)
+        </a>
+    </p>
+</section>
+
+<script>
+    // Keep live-update behaviour by calling the API every 5s and replacing the table rows.
+    function getBarColor(percentage) {
+        if (percentage === 0) return 'gray';
+        if (percentage <= 50) return 'green';
+        else if (percentage <= 70) return 'yellow';
+        else if (percentage <= 90) return 'orange';
+        else return 'red';
+    }
+
+    async function fetchAndRender() {
+        try {
+            const res = await fetch('/api/garages');
+            const garages = await res.json();
+
+            const tbody = document.querySelector('#garageTable tbody');
+            tbody.innerHTML = '';
+
+            garages.forEach(g => {
+                const percentFull = Math.floor((1 - g.available / g.capacity) * 100);
+                const color = getBarColor(percentFull);
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${g.name}</td>
+                    <td>${g.capacity}</td>
+                    <td>${g.available}</td>
+                    <td>
+                        <div class='bar-container'>
+                            <div class='bar ${color}' style='width:${percentFull}%;'>
+                                <span>${percentFull}%</span>
+                            </div>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        } catch (e) {
+            console.error('Failed to fetch garages', e);
+        }
+    }
+
+    // initial fetch done by server render; keep polling for updates
+    setInterval(fetchAndRender, 5000);
+</script>
