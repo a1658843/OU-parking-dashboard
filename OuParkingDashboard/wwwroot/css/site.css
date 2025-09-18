@@ -1,22 +1,130 @@
+/* OU Colors */
+:root {
+    --ou-crimson: #841617;
+    --ou-white: #ffffff;
+    --ou-gray: #333333;
+}
+
+/* Base styles */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: var(--ou-gray);
+}
+
+/* Navbar */
+.ou-navbar {
+    background-color: var(--ou-crimson) !important;
+}
+
+.ou-navbar .nav-link {
+    color: var(--ou-white) !important;
+}
+
+.ou-navbar .nav-link:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.ou-footer {
+    background-color: var(--ou-crimson);
+    color: var(--ou-white);
+    padding: 1rem 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Buttons, inputs, focus rings */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--ou-crimson);
+}
+
+/* Tables */
+table {
+    margin: auto;
+    border-collapse: collapse;
+    width: 90%;
+    background: var(--ou-white);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: var(--ou-crimson);
+    color: var(--ou-white);
+}
+
+/* Progress bars */
+.bar-container {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    height: 25px;
+}
+
+.bar {
+    height: 100%;
+    text-align: center;
+    line-height: 25px;
+    color: white;
+    font-weight: bold;
+}
+
+.gray   { background-color: #999; }
+.green  { background-color: #4CAF50; }
+.yellow { background-color: #FFC107; }
+.orange { background-color: #FF9800; }
+.red    { background-color: #F44336; }
+
+.bar span {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    text-align: center;
+    color: white;
+}
+
+/* Campus Map link */
+.pdf-link {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--ou-crimson);
+    text-decoration: none;
+}
+
+.pdf-link:hover {
+    text-decoration: underline;
+}
+
+/* Fix for table headers being white */
+table thead th {
+    color: #111; /* dark text */
+    background-color: #f8f9fa; /* light gray background */
+    font-weight: bold;
 }
