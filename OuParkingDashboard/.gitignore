@@ -1,0 +1,36 @@
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio cache/options
+.vs/
+.vscode/
+
+# DotNet artifacts
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# Dependency directories
+node_modules/
+packages/
+wwwroot/lib/
+
+# Ignore EF Core Migrations snapshot if auto-generated
+*.dbmdl
+*.mdf
+*.ldf
+
+# Others
+*.swp
+*.DS_Store
+Thumbs.db
