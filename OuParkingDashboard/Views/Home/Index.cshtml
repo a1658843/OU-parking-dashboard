@@ -5,7 +5,13 @@
     Layout = "_Layout"; // uses your Shared/_Layout.cshtml
 }
 
-<h1 class="mb-4">🚗 Live Garage Status</h1>
+<!-- Header with centered OU logo + text -->
+<div style="display:flex; justify-content:center; align-items:center; gap:12px; margin-bottom:20px;">
+    <img src="~/images/ou-logo.png" 
+         alt="University of Oklahoma Logo" 
+         style="height:50px; width:auto;" />
+    <h1 class="mb-0" style="color:#841617; font-weight:bold;">Live Garage Status</h1>
+</div>
 
 <table id="garageTable" class="table">
     <thead>
@@ -30,7 +36,7 @@
                 <td>@g.Available</td>
                 <td>
                     <div class="bar-container">
-                        <div class="bar @color" style="width:@g.PercentFull%;">
+                        <div class="bar @color" style="width:@g.PercentFull%; position: relative;">
                             <span>@g.PercentFull% </span>
                         </div>
                     </div>
@@ -40,14 +46,34 @@
     </tbody>
 </table>
 
-<section id="campus-map" style="margin-top:30px;">
-    <h2>🗺️ Campus Map</h2>
+<section id="campus-map" style="margin-top:30px; text-align:center;">
+    <h2 style="color:#841617; font-weight:bold;">Campus Map</h2>
+
+    <!-- Centered and responsive map image -->
+    <div style="display:flex; justify-content:center; margin:20px 0;">
+        <img src="~/images/ou-parking-map-2025.jpg" asp-append-version="true"
+             alt="OU Parking Map"
+             style="max-width:90%; height:auto; border:2px solid #ccc; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.2);" />
+    </div>
+
+    <!-- PDF download button -->
     <p>
-        <a class="pdf-link" href="/pdfs/ou-parking-map-2025.pdf" target="_blank" rel="noopener noreferrer">
-            📄 View Full Parking Map (PDF)
+        <a class="btn btn-danger"
+           style="background-color:#841617; border:none; font-weight:bold; padding:10px 20px; border-radius:6px;"
+           href="~/pdfs/ou-parking-map-2025.pdf" 
+           download>
+             Download Full Parking Map (PDF)
         </a>
     </p>
 </section>
+
+<!-- Disclaimer -->
+<footer style="margin-top:40px; font-size:0.9em; color:#555; text-align:center;">
+    <p><strong>Disclaimer:</strong> This project is a personal prototype for learning/demo purposes. 
+       It is not affiliated with or endorsed by the University of Oklahoma. 
+       Parking availability is approximate and may change at any time. 
+       Please follow official University of Oklahoma signage and policies.</p>
+</footer>
 
 @section Scripts {
     <script>
@@ -79,7 +105,7 @@
                         <td>${g.available}</td>
                         <td>
                             <div class="bar-container">
-                                <div class="bar ${color}" style="width:${percentFull}%;">
+                                <div class="bar ${color}" style="width:${percentFull}%; position: relative;">
                                     <span>${percentFull}%</span>
                                 </div>
                             </div>
