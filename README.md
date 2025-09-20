@@ -10,8 +10,13 @@ Includes dynamic live updates via API polling and an integrated campus parking m
 
 ## Preview  
 
-![Garage Dashboard Screenshot](OuParkingDashboard/docs/dashboard.png)
+### Dashboard View 1  
+![Garage Dashboard Screenshot 1](OuParkingDashboard/docs/dashboard1.png)  
 *(Live garage capacity with color-coded bars and % fullness)*  
+
+### Dashboard View 2  
+![Garage Dashboard Screenshot 2](OuParkingDashboard/docs/dashboard2.png)  
+*(Integrated campus parking map with garage availability)*  
 
 ---
 
