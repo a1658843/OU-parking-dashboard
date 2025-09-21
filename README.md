@@ -2,9 +2,9 @@
 
 A live parking garage dashboard prototype for the **University of Oklahoma**, showing garage capacity, availability, and % fullness in real time.  
 
-Styled with OU’s official red-and-white theme for a familiar campus look.  
-Built with **ASP.NET Core MVC, EF Core, and Razor Views**.  
-Includes dynamic live updates via API polling and an integrated campus parking map.  
+- Styled with OU’s official red-and-white theme for a familiar campus look.  
+- Built with **ASP.NET Core MVC, EF Core, and Razor Views**.  
+- Includes dynamic live updates via API polling and an integrated campus parking map.  
 
 ---
 
