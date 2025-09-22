@@ -29,5 +29,12 @@ namespace OuParkingDashboard.Controllers
 
             return View(garages);
         }
+
+        // GET: /Home/Privacy
+        [HttpGet]
+        public IActionResult Privacy()
+        {
+            return View();
+        }
     }
 }
