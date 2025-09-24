@@ -43,7 +43,8 @@ It’s also a showcase of my skills in:
 
 ## Data Notes
 
-- Public vendor and university materials indicate that approximately three OU garages currently have sensor-equipped parking guidance systems.
+Public vendor and university materials indicate that approximately three OU garages currently have sensor-equipped parking guidance systems.
+
 - Jenkins Garage is confirmed (about 1,221 spaces with camera-based sensors).
 - Two additional garages are reported but not named publicly.
 - In this prototype, they are represented as Garage A and Garage B with placeholder capacities.
