@@ -47,7 +47,6 @@ Public vendor and university materials indicate that approximately three OU gara
 
 - Jenkins Garage is confirmed (about 1,221 spaces with camera-based sensors).
 - Two additional garages are reported but not named publicly.
-- In this prototype, they are represented as Garage A and Garage B with placeholder capacities.
 
 This project is designed so that as OU publishes more details (or adds new sensor-equipped garages), they can easily be added to the live dashboard.
 
